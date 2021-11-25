@@ -38262,7 +38262,7 @@ p.r=X.ajx()
 q.a9(0,p.ga3M())
 q.k1=p
 q=p}else q=p
-return new D.vy(new S.vR(new B.TT(new N.HU(N.alH(H.a([R.alI("HomePageRoute","/")],t.tl))),!1),q,"Faiizii's CV",r,!1,s),s)}}
+return new D.vy(new S.vR(new B.TT(new N.HU(N.alH(H.a([R.alI("HomePageRoute","/")],t.tl))),!1),q,"Faizan's Portfolio",r,!1,s),s)}}
 X.my.prototype={
 ar(){var s=null,r=t.A
 return new X.Md(new N.b3(s,t.PK),F.I6(),H.a([new Z.n3("Home",new N.b3(s,r),!0),new Z.n3("About",new N.b3(s,r),!1),new Z.n3("Skills",new N.b3(s,r),!1),new Z.n3("Projects",new N.b3(s,r),!1)],t.yh),s,C.m)}}
@@ -70260,7 +70260,7 @@ return R.axL(B.akr(C.hc,16,C.K,C.z),B.kC(C.n,14,C.K,C.bV),B.akr(C.n,16,C.K,C.z),
 r($,"aGe","ain",function(){return H.a([D.afy(C.Bq,"+92 324 448 8099","Phone Me:"),D.afy(C.BG,"faiiziiawan@gmail.com","Mail Me:"),D.afy(C.BF,"https://github.com/faiizii","Follow Me:")],H.P("o<pd>"))})
 r($,"aDq","ael",function(){var q="https://pk.linkedin.com/in/faiiziiawan",p="https://stackoverflow.com/users/5177596/faiizii-awan",o="https://g.dev/faiiziiawan"
 return H.a([M.agq(C.BD,q,q),M.agq(C.BE,p,p),M.agq(C.BC,o,o)],H.P("o<IN>"))})
-r($,"aDr","ai4",function(){return H.a([N.alU(C.a0,C.k,C.BJ,"Upwork",C.a0,""),N.alU(C.a0,C.k,C.BI,"Code Signal",C.a0,"https://app.codesignal.com/profile/faiizii")],H.P("o<IM>"))})
+r($,"aDr","ai4",function(){return H.a([N.alU(C.a0,C.k,C.BJ,"Upwork",C.a0,"https://www.upwork.com/services/product/flutter-android-ios-and-web-application-1382338032327282688"),N.alU(C.a0,C.k,C.BI,"Code Signal",C.a0,"https://app.codesignal.com/profile/faiizii")],H.P("o<IM>"))})
 r($,"aDp","ai3",function(){return H.a([B.xQ(100,"Flutter"),B.xQ(90,"Native Android"),B.xQ(70,"CodeIgnitor (PHP APIs)"),B.xQ(90,"Firebase"),B.xQ(90,"Google APIs"),B.xQ(60,"MySQL/Oracle")],H.P("o<Iy>"))})
 r($,"aDo","aek",function(){return H.a([T.xO("Build and release cross platform apps. Can integrate payment gateway, maps, ads, notifications, and REST APIs in any small/mid/large scale apps.",C.BK,"Flutter Developer"),T.xO("",C.kD,""),T.xO("Build and release native android apps. Can integrate payment gateway, maps, ads, notifications, and REST APIs in any small/mid/large scale apps.",C.BB,"Native Android"),T.xO("Develop REST APIs using PHP with the Oracle/MySQL backend Storage.",C.kD,"CodeIgnitor"),T.xO("Design business logics on DB layer, perform ETL",C.BH,"MySQL/ORACLE"),T.xO("",C.BP,"")],H.P("o<Ix>"))})
 r($,"aDs","ai5",function(){return H.a([L.ags("Happy Clients",6),L.ags("Years of Experience",3),L.ags("Incredible Projects",14)],H.P("o<J2>"))})
