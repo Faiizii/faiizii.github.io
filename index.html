@@ -1,199 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faiizi | Portfolio & AI Assistant</title>
-  <!-- Tailwind CSS for modern styling -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Marked JS for rendering AI Markdown responses cleanly -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <!-- FontAwesome for profile icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex flex-col justify-between">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faizan Awan — Mobile Engineer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root{
+    --paper: #ffffff;
+    --panel: #faf9f7;
+    --ink: #1a1a1a;
+    --ink-soft: #3d3d3d;
+    --muted: #6e6e6e;
+    --rule: #1a1a1a;
+    --border: #dedcd8;
+    --accent: #2f4a63;
+    --accent-tint: #eef2f5;
+    --font: Georgia, 'Times New Roman', Times, serif;
+  }
 
-  <!-- Header / Hero Section -->
-  <header class="max-w-4xl mx-auto w-full px-6 pt-12 pb-8 text-center md:text-left">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-      <div>
-        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Faiizi</h1>
-        <p class="mt-2 text-lg text-emerald-400 font-medium">Software Engineer & AI Enthusiast</p>
-        <p class="mt-1 text-slate-400 max-w-xl">Building intelligent web applications, modern backend architectures, and exploring open-source LLMs.</p>
+  *{ box-sizing: border-box; }
+  html, body{ height: 100%; }
+  body{
+    margin: 0;
+    background: var(--panel);
+    color: var(--ink);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+  }
+
+  /* ============ LEFT — RESUME ============ */
+  .resume{
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--paper);
+    padding: 64px 72px 80px 72px;
+  }
+  .resume-inner{ max-width: 640px; }
+
+  h1.name{
+    font-family: var(--font);
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+    color: var(--ink);
+  }
+  .subtitle{
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 18px 0;
+  }
+  .top-rule{
+    border: none;
+    border-top: 2px solid var(--rule);
+    margin: 0 0 18px 0;
+  }
+  .contact-row{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .contact-row a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-row a:hover, .contact-row a:focus-visible{ color: var(--accent); border-color: var(--accent); }
+  .contact-row .sep{ color: var(--border); margin: 0 10px; }
+
+  h2.section{
+    font-family: var(--font);
+    font-weight: normal;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 34px 0 14px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  p.body-text{
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 10px 0;
+  }
+  p.body-text:last-child{ margin-bottom: 0; }
+  p.body-text b{ color: var(--ink); font-weight: bold; }
+
+  .job{ margin-bottom: 22px; }
+  .job:last-child{ margin-bottom: 0; }
+  .job-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .job-title{
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .job-title b{ font-weight: bold; }
+  .job-title i{ font-style: italic; color: var(--ink-soft); }
+  .job-dates{
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  ul.bullets{
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.68;
+  }
+  ul.bullets li{ margin-bottom: 6px; }
+  ul.bullets li::marker{ color: var(--muted); }
+
+  .skills-line{
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .proj{ margin-bottom: 18px; }
+  .proj:last-child{ margin-bottom: 0; }
+  .proj h3{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    color: var(--ink);
+  }
+  .proj p{ margin: 0 0 6px 0; }
+  .proj .links{ font-size: 12.5px; color: var(--muted); }
+  .proj .links a{ color: var(--accent); text-decoration: none; }
+  .proj .links a:hover{ text-decoration: underline; }
+
+  .download-row{
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .btn-download{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font);
+    font-size: 13.5px;
+    padding: 11px 20px;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background .15s ease;
+  }
+  .btn-download:hover{ background: var(--accent); }
+  .download-note{ font-size: 12px; color: var(--muted); }
+
+  /* ============ RIGHT — CHAT ============ */
+  .chat{
+    height: 100vh;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-head{
+    padding: 24px 26px 18px 26px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-head h2{
+    font-family: var(--font);
+    font-weight: normal;
+    font-size: 17px;
+    margin: 0 0 4px 0;
+    color: var(--ink);
+  }
+  .chat-head p{
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .chat-window{
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .msg{
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 12px 15px;
+    border-radius: 6px;
+    max-width: 90%;
+  }
+  .msg-bot{
+    background: var(--paper);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    align-self: flex-start;
+  }
+  .msg-user{
+    background: var(--accent-tint);
+    border: 1px solid #dbe4ea;
+    color: var(--ink);
+    align-self: flex-end;
+  }
+  .msg-error{
+    background: #fbecea;
+    border: 1px solid #e3b3ab;
+    color: #8a3b30;
+    align-self: flex-start;
+  }
+  .msg.loading{ color: var(--muted); font-size: 13px; font-style: italic; }
+  .msg :is(p){ margin: 0 0 8px 0; }
+  .msg :is(p):last-child{ margin-bottom: 0; }
+  .msg pre{ background: #f2f1ee; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12.5px; font-family: Menlo, Consolas, monospace; }
+  .msg code{ font-family: Menlo, Consolas, monospace; font-size: 12.5px; }
+  .msg a{ color: var(--accent); }
+
+  .chat-input{
+    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+  }
+  .prompt-row{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 4px 4px 14px;
+  }
+  .prompt-row input{
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 14px;
+    padding: 10px 0;
+  }
+  .prompt-row input::placeholder{ color: #a8a6a1; font-style: italic; }
+  .send-btn{
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    width: 34px; height: 34px;
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .15s ease;
+  }
+  .send-btn:hover{ background: var(--accent); }
+  .send-btn:disabled{ opacity: .5; cursor: default; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .resume::-webkit-scrollbar, .chat-window::-webkit-scrollbar{ width: 8px; }
+  .resume::-webkit-scrollbar-thumb, .chat-window::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 4px; }
+  .resume::-webkit-scrollbar-track, .chat-window::-webkit-scrollbar-track{ background: transparent; }
+
+  @media (max-width: 920px){
+    .app{ grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
+    .resume{ height: auto; padding: 40px 26px 40px 26px; }
+    .chat{ height: 92vh; border-left: none; border-top: 1px solid var(--border); }
+    .job-head{ flex-direction: column; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ LEFT: RESUME ============ -->
+  <section class="resume">
+    <div class="resume-inner">
+
+      <h1 class="name">Faizan Awan</h1>
+      <p class="subtitle">Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience</p>
+      <hr class="top-rule">
+
+      <div class="contact-row">
+        <a href="tel:+966534093689">+966 53 409 3689</a><span class="sep">·</span><a href="mailto:dev.faizan.awan@gmail.com">dev.faizan.awan@gmail.com</a><span class="sep">·</span><a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank">linkedin.com/in/faiiziiawan</a>
       </div>
 
-      <!-- Social Links -->
-      <div class="flex gap-4 text-2xl text-slate-400">
-        <a href="https://github.com/faiizii" target="_blank" class="hover:text-emerald-400 transition-colors"><i class="fa-brands font-bold fa-github"></i></a>
-        <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://twitter.com/your-twitter" target="_blank" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="mailto:your-email@example.com" class="hover:text-emerald-400 transition-colors"><i class="fa-solid fa-envelope"></i></a>
+      <h2 class="section">Visa Eligibilities</h2>
+      <p class="body-text">As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.</p>
+      <p class="body-text">Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.</p>
+
+      <h2 class="section">Skills</h2>
+      <p class="skills-line">Cross Platform Application Development (Flutter SDK, Android JAVA SDk), Microservices development (Codeignitor PHP, Django Python), Vibe Coding for redundant code steps, Managing git repos (code reviews, merging pull requests), App publishing (Google Play, Apple AppStore, Microservices deployment), and UI/UX (Figma).</p>
+
+      <h2 class="section">Experience</h2>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title"><b>Al Falak Electronic &amp; Supplies, Saudi Arabia</b> — <i>Web Developer (Saudi Aramco Contractor)</i></div>
+        </div>
+        <div class="job-dates">Jan 2023 – PRESENT</div>
+        <ul class="bullets">
+          <li>Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
+          <li>Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
+          <li>Isolated development/test and production Oracle database instances by installing a fresh Oracle instance on Windows Server.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title"><b>Infogistic Pvt. Ltd., Pakistan</b> — <i>Mobile Application Developer</i></div>
+        </div>
+        <div class="job-dates">Oct 2020 – Sept 2022</div>
+        <ul class="bullets">
+          <li>Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
+          <li>Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
+          <li>Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
+          <li>Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title"><b>VIION Technology, Pakistan</b> — <i>Android Developer</i></div>
+        </div>
+        <div class="job-dates">Nov 2018 – Sept 2020</div>
+        <ul class="bullets">
+          <li>Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2 for dependency injection, Room for persistence storage, and Retrofit for network communication.</li>
+          <li>Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
+          <li>Introduced usage of Kotlin as a replacement for Java.</li>
+        </ul>
+      </div>
+
+      <h2 class="section">Education</h2>
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title"><b>Government College University Lahore, Pakistan (H+)</b> — Bachelors of Computer Science (Hons.), 4 Years</div>
+        </div>
+        <div class="job-dates">Nov 2013 – Sept 2018</div>
+        <p class="body-text" style="margin-top:8px;">Graduated with 3.07/4 CGPA (76.75%), equivalent to a Good grade under EU Bachelors degree programs.</p>
+      </div>
+
+      <h2 class="section">Projects</h2>
+
+      <div class="proj">
+        <h3>Flutter Native Splash — Open Source Contribution</h3>
+        <p class="body-text">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
+        <div class="links">Pub: <a href="https://pub.dev/packages/flutter_native_splash" target="_blank">pub.dev/packages/flutter_native_splash</a> &nbsp;·&nbsp; <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank">GitHub PR #257</a></div>
+      </div>
+
+      <div class="proj">
+        <h3>Flutter Community | Plus Plugins — Open Source Contribution</h3>
+        <p class="body-text">Explored test cases across the packages and found room to improve unit tests in two modules. Used Dart's 'part' / 'part of' pattern to isolate device-mock information and refactored the existing test code for readability.</p>
+        <div class="links"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank">github.com/fluttercommunity/plus_plugins</a> &nbsp;·&nbsp; <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank">GitHub PR #2053</a></div>
+      </div>
+
+      <div class="download-row">
+        <a href="resume.pdf" download class="btn-download"><i class="fa-solid fa-download"></i> Download PDF</a>
+        <span class="download-note">Same content, formatted as a one-page PDF</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ RIGHT: CHAT ============ -->
+  <section class="chat">
+    <div class="chat-head">
+      <h2>Ask Daddo</h2>
+      <p>Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
+    </div>
+
+    <div id="chatWindow" class="chat-window">
+      <div class="msg msg-bot">
+        Hello — I'm Daddo, Faizan's AI assistant. Ask me about his experience, mobile projects, skills, or visa eligibility.
       </div>
     </div>
-  </header>
 
-  <!-- Main Content Container -->
-  <main class="max-w-4xl mx-auto w-full px-6 grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-
-    <!-- LEFT COLUMN: Resume Summary -->
-    <section class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-6 flex flex-col justify-between">
-      <div>
-        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <i class="fa-solid fa-file-lines text-emerald-400"></i> Resume Overview
-        </h2>
-
-        <!-- Experience Item -->
-        <div class="mb-6">
-          <h3 class="font-semibold text-slate-200">Software Engineer</h3>
-          <p class="text-xs text-slate-400 mb-2">2018 — Present</p>
-          <p class="text-sm text-slate-300">Leading development on scalable cloud systems and integrating LLM workflows into client platforms.</p>
+    <div class="chat-input">
+      <form id="chatForm" onsubmit="handleChatSubmit(event)">
+        <div class="prompt-row">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Ask a question…"
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="sendBtn" class="send-btn" aria-label="Send">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
         </div>
-
-        <!-- Skills List -->
-        <div class="mb-6">
-          <h3 class="font-semibold text-slate-200 mb-2">Core Skills</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-md">Python</span>
-            <span class="bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-md">JavaScript</span>
-            <span class="bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-md">Node.js</span>
-            <span class="bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-md">LLMs / RAG</span>
-            <span class="bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-md">Cloudflare Workers</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Resume Download Button -->
-      <a href="resume.pdf" download class="inline-flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-xl text-sm transition-all border border-slate-600">
-        <i class="fa-solid fa-download"></i> Download Full PDF
-      </a>
-    </section>
-
-    <!-- RIGHT COLUMN: Interactive AI Chatbot -->
-    <section class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-6 flex flex-col h-[500px]">
-      <div class="border-b border-slate-700 pb-3 mb-4 flex justify-between items-center">
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-robot text-emerald-400"></i> Daddo AI
-        </h2>
-        <span class="text-xs text-slate-400 bg-slate-700 px-2 py-0.5 rounded">Hermes AI</span>
-      </div>
-
-      <!-- Messages Window -->
-      <div id="chatWindow" class="flex-1 overflow-y-auto space-y-4 pr-2 text-sm text-slate-300">
-        <div class="bg-slate-700/40 p-3 rounded-xl border border-slate-700">
-          Hello! I am Daddo. Faiizi's AI assistant. Ask me anything about Faiizi's projects, experience, skills or hobbies!
-        </div>
-      </div>
-
-      <!-- Input Form -->
-      <form id="chatForm" onsubmit="handleChatSubmit(event)" class="mt-4 flex gap-2">
-        <input 
-          type="text" 
-          id="userInput" 
-          placeholder="Ask a question..." 
-          required
-          class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400"
-        >
-        <button 
-          type="submit" 
-          id="sendBtn"
-          class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-4 py-2 rounded-xl transition-all flex items-center justify-center"
-        >
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
       </form>
-    </section>
+    </div>
+  </section>
 
-  </main>
+</div>
 
-  <!-- Footer -->
-  <footer class="text-center py-6 border-t border-slate-800 text-xs text-slate-500">
-    <p>© 2026 Faiizi. Powered by GitHub Pages & Cloudflare Workers.</p>
-  </footer>
+<script>
+  const WORKER_URL = "https://faiizii-resume-bot.m-faizan-aramco.workers.dev/";
 
-  <!-- Chat Logic JavaScript -->
-  <script>
-    // URL to your Cloudflare Worker Proxy
-    const WORKER_URL = "https://faiizii-resume-bot.m-faizan-aramco.workers.dev/";
+  async function handleChatSubmit(event) {
+    event.preventDefault();
 
-    async function handleChatSubmit(event) {
-      event.preventDefault();
+    const inputField = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatWindow = document.getElementById("chatWindow");
+    const question = inputField.value.trim();
 
-      const inputField = document.getElementById("userInput");
-      const sendBtn = document.getElementById("sendBtn");
-      const chatWindow = document.getElementById("chatWindow");
-      const question = inputField.value.trim();
+    if (!question) return;
 
-      if (!question) return;
+    inputField.value = "";
+    inputField.disabled = true;
+    sendBtn.disabled = true;
 
-      // Disable inputs while processing
-      inputField.value = "";
-      inputField.disabled = true;
-      sendBtn.disabled = true;
+    chatWindow.innerHTML += `
+      <div class="msg msg-user">${escapeHtml(question)}</div>
+    `;
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 
-      // Render User Message
-      chatWindow.innerHTML += `
-        <div class="bg-emerald-950/60 border border-emerald-800/50 p-3 rounded-xl ml-auto max-w-[85%] text-slate-200">
-          <strong>You:</strong> ${escapeHtml(question)}
-        </div>
-      `;
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+    const loadingId = "loading-" + Date.now();
+    chatWindow.innerHTML += `
+      <div id="${loadingId}" class="msg msg-bot loading">
+        <i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Thinking…
+      </div>
+    `;
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 
-      // Render Loading Indicator
-      const loadingId = "loading-" + Date.now();
-      chatWindow.innerHTML += `
-        <div id="${loadingId}" class="bg-slate-700/40 p-3 rounded-xl border border-slate-700 animate-pulse text-slate-400">
-          <i class="fa-solid fa-spinner fa-spin mr-2"></i> Thinking...
-        </div>
-      `;
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: question })
+      });
 
-      try {
-        const response = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: question })
-        });
+      const data = await response.json();
+      document.getElementById(loadingId).remove();
 
-        const data = await response.json();
-        document.getElementById(loadingId).remove();
+      if (response.ok && data.choices && data.choices[0]) {
+        const rawContent = data.choices[0].message.content;
+        const parsedContent = marked.parse(rawContent);
 
-        if (response.ok && data.choices && data.choices[0]) {
-          const rawContent = data.choices[0].message.content;
-          // Parse Markdown response using Marked.js
-          const parsedContent = marked.parse(rawContent);
-
-          chatWindow.innerHTML += `
-            <div class="bg-slate-700/40 p-3 rounded-xl border border-slate-700 prose prose-invert max-w-none text-sm">
-              ${parsedContent}
-            </div>
-          `;
-        } else {
-          const errText = data.error || "Failed to fetch response.";
-          chatWindow.innerHTML += `
-            <div class="bg-rose-950/50 border border-rose-800 p-3 rounded-xl text-rose-300">
-              ${escapeHtml(errText)}
-            </div>
-          `;
-        }
-
-      } catch (err) {
-        document.getElementById(loadingId)?.remove();
         chatWindow.innerHTML += `
-          <div class="bg-rose-950/50 border border-rose-800 p-3 rounded-xl text-rose-300">
-            Error contacting AI service. Please try again later.
-          </div>
+          <div class="msg msg-bot">${parsedContent}</div>
         `;
-      } finally {
-        inputField.disabled = false;
-        sendBtn.disabled = false;
-        inputField.focus();
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+      } else {
+        const errText = data.error || "Failed to fetch response.";
+        chatWindow.innerHTML += `
+          <div class="msg msg-error">${escapeHtml(errText)}</div>
+        `;
       }
-    }
 
-    function escapeHtml(text) {
-      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    } catch (err) {
+      document.getElementById(loadingId)?.remove();
+      chatWindow.innerHTML += `
+        <div class="msg msg-error">Error contacting AI service. Please try again later.</div>
+      `;
+    } finally {
+      inputField.disabled = false;
+      sendBtn.disabled = false;
+      inputField.focus();
+      chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-  </script>
+  }
+
+  function escapeHtml(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+</script>
 </body>
 </html>
