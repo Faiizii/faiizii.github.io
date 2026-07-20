@@ -45,7 +45,7 @@
     background: var(--paper);
     padding: clamp(40px, 5vw, 64px) clamp(28px, 6vw, 72px) 80px;
   }
-  .resume-inner{ max-width: 760px; width: 100%; }
+  .resume-inner{ max-width: none; width: 100%; }
 
   h1.name{
     font-family: var(--font);
@@ -77,6 +77,80 @@
   }
   .contact-row a:hover, .contact-row a:focus-visible{ color: var(--accent); border-color: var(--accent); }
   .contact-row .sep{ color: var(--border); margin: 0 10px; }
+
+  .viewer-select{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0 0 0;
+  }
+  .viewer-label{
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .viewer-tabs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .viewer-tab{
+    font-family: var(--font);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .viewer-tab:hover{ border-color: var(--accent); color: var(--accent); }
+  .viewer-tab.active{
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .persona-note{
+    display: none;
+    margin: 16px 0 0 0;
+    padding: 13px 16px;
+    background: var(--accent-tint);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .persona-note.show{ display: block; }
+
+  [data-audience]{ transition: background .2s ease, box-shadow .2s ease; }
+  li[data-audience].is-relevant{
+    background: var(--accent-tint);
+    margin-left: -10px;
+    padding: 2px 10px 2px 6px;
+    border-radius: 3px;
+    color: var(--ink);
+    list-style-position: inside;
+  }
+  span[data-audience].is-relevant{
+    background: var(--accent-tint);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+  .visa-box.is-relevant{
+    box-shadow: 0 0 0 1px var(--accent) inset;
+  }
+  .proj[data-audience].is-relevant{
+    background: var(--accent-tint);
+    padding: 12px 14px;
+    margin: 0 -14px 18px;
+    border-radius: 4px;
+  }
 
   h2.section{
     font-family: var(--font);
@@ -331,19 +405,32 @@
     <div class="resume-inner">
 
       <h1 class="name">Faizan Awan</h1>
-      <p class="subtitle">Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience</p>
+      <p class="subtitle" id="tagline">Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience</p>
       <hr class="top-rule">
 
       <div class="contact-row">
         <a href="tel:+966534093689">+966 53 409 3689</a><span class="sep">·</span><a href="mailto:dev.faizan.awan@gmail.com">dev.faizan.awan@gmail.com</a><span class="sep">·</span><a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank">linkedin.com/in/faiiziiawan</a>
       </div>
 
-      <h2 class="section">Visa Eligibilities</h2>
-      <p class="body-text">As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.</p>
-      <p class="body-text">Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.</p>
+      <div class="viewer-select" role="group" aria-label="View this resume as">
+        <span class="viewer-label">Viewing as</span>
+        <div class="viewer-tabs">
+          <button type="button" class="viewer-tab active" data-persona="general">General</button>
+          <button type="button" class="viewer-tab" data-persona="recruiter">Recruiter</button>
+          <button type="button" class="viewer-tab" data-persona="techlead">Tech Lead</button>
+          <button type="button" class="viewer-tab" data-persona="founder">Founder</button>
+        </div>
+      </div>
+      <div id="personaNote" class="persona-note"></div>
+
+      <div class="visa-box" data-audience="recruiter">
+        <h2 class="section">Visa Eligibilities</h2>
+        <p class="body-text">As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.</p>
+        <p class="body-text">Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.</p>
+      </div>
 
       <h2 class="section">Skills</h2>
-      <p class="skills-line">Cross Platform Application Development (Flutter SDK, Android JAVA SDk), Microservices development (Codeignitor PHP, Django Python), Vibe Coding for redundant code steps, Managing git repos (code reviews, merging pull requests), App publishing (Google Play, Apple AppStore, Microservices deployment), and UI/UX (Figma).</p>
+      <p class="skills-line">Cross Platform Application Development (<span data-audience="techlead">Flutter SDK, Android JAVA SDk</span>), Microservices development (<span data-audience="techlead founder">Codeignitor PHP, Django Python</span>), Vibe Coding for redundant code steps, <span data-audience="techlead">Managing git repos (code reviews, merging pull requests)</span>, <span data-audience="founder recruiter">App publishing (Google Play, Apple AppStore, Microservices deployment)</span>, and UI/UX (Figma).</p>
 
       <h2 class="section">Experience</h2>
 
@@ -353,8 +440,8 @@
         </div>
         <div class="job-dates">Jan 2023 – PRESENT</div>
         <ul class="bullets">
-          <li>Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
-          <li>Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
+          <li data-audience="techlead">Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
+          <li data-audience="founder">Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
           <li>Isolated development/test and production Oracle database instances by installing a fresh Oracle instance on Windows Server.</li>
         </ul>
       </div>
@@ -365,10 +452,10 @@
         </div>
         <div class="job-dates">Oct 2020 – Sept 2022</div>
         <ul class="bullets">
-          <li>Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
-          <li>Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
-          <li>Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
-          <li>Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
+          <li data-audience="techlead">Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
+          <li data-audience="founder recruiter">Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
+          <li data-audience="techlead">Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
+          <li data-audience="founder">Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
         </ul>
       </div>
 
@@ -378,9 +465,9 @@
         </div>
         <div class="job-dates">Nov 2018 – Sept 2020</div>
         <ul class="bullets">
-          <li>Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2 for dependency injection, Room for persistence storage, and Retrofit for network communication.</li>
-          <li>Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
-          <li>Introduced usage of Kotlin as a replacement for Java.</li>
+          <li data-audience="techlead">Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2 for dependency injection, Room for persistence storage, and Retrofit for network communication.</li>
+          <li data-audience="techlead">Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
+          <li data-audience="founder">Introduced usage of Kotlin as a replacement for Java.</li>
         </ul>
       </div>
 
@@ -395,13 +482,13 @@
 
       <h2 class="section">Projects</h2>
 
-      <div class="proj">
+      <div class="proj" data-audience="techlead">
         <h3>Flutter Native Splash — Open Source Contribution</h3>
         <p class="body-text">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
         <div class="links">Pub: <a href="https://pub.dev/packages/flutter_native_splash" target="_blank">pub.dev/packages/flutter_native_splash</a> &nbsp;·&nbsp; <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank">GitHub PR #257</a></div>
       </div>
 
-      <div class="proj">
+      <div class="proj" data-audience="techlead">
         <h3>Flutter Community | Plus Plugins — Open Source Contribution</h3>
         <p class="body-text">Explored test cases across the packages and found room to improve unit tests in two modules. Used Dart's 'part' / 'part of' pattern to isolate device-mock information and refactored the existing test code for readability.</p>
         <div class="links"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank">github.com/fluttercommunity/plus_plugins</a> &nbsp;·&nbsp; <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank">GitHub PR #2053</a></div>
@@ -419,7 +506,7 @@
   <section class="chat">
     <div class="chat-head">
       <h2>Ask Daddo</h2>
-      <p>Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
+      <p id="chatSubtitle">Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
     </div>
 
     <div id="chatWindow" class="chat-window">
@@ -518,6 +605,57 @@
   function escapeHtml(text) {
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
+
+  const PERSONAS = {
+    general: {
+      tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience",
+      note: null,
+      chat: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility."
+    },
+    recruiter: {
+      tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.",
+      note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+). Full detail in Visa Eligibilities below.",
+      chat: "Ask about availability, visa status, or career history."
+    },
+    techlead: {
+      tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.",
+      note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.",
+      chat: "Ask about architecture choices, testing practices, or code review workflow."
+    },
+    founder: {
+      tagline: "Ships mobile products end-to-end and automates the operational grind around them — architecture through to RPA pipelines saving 100+ hours a month.",
+      note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.",
+      chat: "Ask what he could own on day one, or how he works with a small team."
+    }
+  };
+
+  function setPersona(key) {
+    const data = PERSONAS[key] || PERSONAS.general;
+
+    document.getElementById("tagline").innerHTML = data.tagline;
+    document.getElementById("chatSubtitle").textContent = data.chat;
+
+    const note = document.getElementById("personaNote");
+    if (data.note) {
+      note.textContent = data.note;
+      note.classList.add("show");
+    } else {
+      note.classList.remove("show");
+    }
+
+    document.querySelectorAll(".viewer-tab").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.persona === key);
+    });
+
+    document.querySelectorAll("[data-audience]").forEach(el => {
+      const tags = el.dataset.audience.split(" ");
+      el.classList.toggle("is-relevant", key !== "general" && tags.includes(key));
+    });
+  }
+
+  document.querySelectorAll(".viewer-tab").forEach(btn => {
+    btn.addEventListener("click", () => setPersona(btn.dataset.persona));
+  });
 </script>
 </body>
 </html>
