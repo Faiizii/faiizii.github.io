@@ -211,16 +211,20 @@
   function addBotBubble(html, isError=false){
     const row = document.createElement("div");
     row.className = "msg-row bot";
-    const card = document.createElement(isError ? "md-outlined-card" : "md-outlined-card");
-    card.className = "msg-bubble";
-    card.style.padding = "12px 15px";
+    const bubble = document.createElement("div");
+    bubble.className = "msg-bubble";
+    bubble.style.padding = "12px 15px";
+    bubble.style.borderRadius = "16px";
+    bubble.style.border = "1px solid var(--md-sys-color-outline)";
     if(isError){
-      card.style.setProperty("--md-outlined-card-outline-color", "var(--md-sys-color-error)");
-      card.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-error);">${html}</p>`;
+      bubble.style.background = "var(--md-sys-color-error-container)";
+      bubble.style.borderColor = "var(--md-sys-color-error)";
+      bubble.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-error);">${html}</p>`;
     } else {
-      card.innerHTML = `<div style="font-size:14px;color:var(--md-sys-color-on-surface-variant);">${html}</div>`;
+      bubble.style.background = "var(--md-sys-color-surface)";
+      bubble.innerHTML = `<div style="font-size:14px;color:var(--md-sys-color-on-surface-variant);">${html}</div>`;
     }
-    row.appendChild(card);
+    row.appendChild(bubble);
     chatWindow.appendChild(row);
     chatWindow.scrollTop = chatWindow.scrollHeight;
     return row;
@@ -229,12 +233,13 @@
   function addUserBubble(text){
     const row = document.createElement("div");
     row.className = "msg-row user";
-    const card = document.createElement("md-filled-card");
-    card.className = "msg-bubble";
-    card.style.padding = "12px 15px";
-    card.style.setProperty("--md-filled-card-container-color", "var(--md-sys-color-primary)");
-    card.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-on-primary);">${escapeHtml(text)}</p>`;
-    row.appendChild(card);
+    const bubble = document.createElement("div");
+    bubble.className = "msg-bubble";
+    bubble.style.padding = "12px 15px";
+    bubble.style.borderRadius = "16px";
+    bubble.style.background = "var(--md-sys-color-primary)";
+    bubble.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-on-primary);">${escapeHtml(text)}</p>`;
+    row.appendChild(bubble);
     chatWindow.appendChild(row);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
