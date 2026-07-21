@@ -4,395 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Faizan Awan — Mobile Engineer</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- M3 typography + iconography -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+
+<!-- Official Material Web (M3) components -->
+<script type="importmap">
+{ "imports": { "@material/web/": "https://esm.run/@material/web/" } }
+</script>
+<script type="module">
+  import '@material/web/all.js';
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <style>
+  /* ---- M3 design tokens (official theming API, not custom styling) ---- */
   :root{
-    --paper: #ffffff;
-    --panel: #faf9f7;
-    --ink: #1a1a1a;
-    --ink-soft: #3d3d3d;
-    --muted: #6e6e6e;
-    --rule: #1a1a1a;
-    --border: #dedcd8;
-    --accent: #2f4a63;
-    --accent-tint: #eef2f5;
-    --font: Georgia, 'Times New Roman', Times, serif;
+    --md-sys-color-primary: #2f4a63;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-primary-container: #d9e4ee;
+    --md-sys-color-on-primary-container: #0b2233;
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-surface-variant: #faf9f7;
+    --md-sys-color-on-surface: #1a1a1a;
+    --md-sys-color-on-surface-variant: #3d3d3d;
+    --md-sys-color-outline: #dedcd8;
+    --md-sys-color-outline-variant: #e8e6e2;
+    --md-sys-color-error: #8a3b30;
+    --md-sys-color-error-container: #fbecea;
+    --md-sys-typescale-body-large-font: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
+  * { font-family: 'Roboto', sans-serif; box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--md-sys-color-surface-variant); }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
 
-  *{ box-sizing: border-box; }
-  html, body{ height: 100%; }
-  body{
-    margin: 0;
-    background: var(--panel);
-    color: var(--ink);
-    font-family: var(--font);
-    -webkit-font-smoothing: antialiased;
-  }
+  /* ---- Layout only (structural, unavoidable in any framework) ---- */
+  .app{ height: 100dvh; display: grid; grid-template-columns: minmax(0,1fr) clamp(400px,33vw,560px); }
+  .resume{ height: 100dvh; overflow-y: auto; background: var(--md-sys-color-surface); padding: clamp(40px,5vw,64px) clamp(28px,6vw,72px) 80px; }
+  .chat{ height: 100dvh; display: flex; flex-direction: column; border-left: 1px solid var(--md-sys-color-outline); }
+  .chat-window{ flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .msg-row{ display: flex; }
+  .msg-row.user{ justify-content: flex-end; }
+  .msg-row.bot{ justify-content: flex-start; }
+  .msg-bubble{ max-width: 85%; }
+  .chat-input-row{ display: flex; align-items: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--md-sys-color-outline); }
+  .chat-input-row md-outlined-text-field{ flex: 1; }
+  .viewer-tabs{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .contact-row{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  [data-audience].is-relevant{ background: var(--md-sys-color-primary-container); border-radius: 8px; }
 
-  .app{
-    height: 100vh;
-    height: 100dvh;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(400px, 33vw, 560px);
-  }
-
-  /* ============ LEFT — RESUME ============ */
-  .resume{
-    height: 100vh;
-    height: 100dvh;
-    overflow-y: auto;
-    background: var(--paper);
-    padding: clamp(40px, 5vw, 64px) clamp(28px, 6vw, 72px) 80px;
-  }
-  .resume-inner{ max-width: none; width: 100%; }
-
-  h1.name{
-    font-family: var(--font);
-    font-weight: normal;
-    font-size: 40px;
-    line-height: 1.15;
-    margin: 0 0 8px 0;
-    color: var(--ink);
-  }
-  .subtitle{
-    font-size: 15px;
-    color: var(--ink-soft);
-    margin: 0 0 18px 0;
-  }
-  .top-rule{
-    border: none;
-    border-top: 2px solid var(--rule);
-    margin: 0 0 18px 0;
-  }
-  .contact-row{
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-  }
-  .contact-row a{
-    color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .contact-row a:hover, .contact-row a:focus-visible{ color: var(--accent); border-color: var(--accent); }
-  .contact-row .sep{ color: var(--border); margin: 0 10px; }
-
-  .viewer-select{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 22px 0 0 0;
-  }
-  .viewer-label{
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .viewer-tabs{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .viewer-tab{
-    font-family: var(--font);
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    cursor: pointer;
-    transition: background .15s ease, color .15s ease, border-color .15s ease;
-  }
-  .viewer-tab:hover{ border-color: var(--accent); color: var(--accent); }
-  .viewer-tab.active{
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--paper);
-  }
-
-  .persona-note{
-    display: none;
-    margin: 16px 0 0 0;
-    padding: 13px 16px;
-    background: var(--accent-tint);
-    border-left: 3px solid var(--accent);
-    border-radius: 3px;
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-  }
-  .persona-note.show{ display: block; }
-
-  [data-audience]{ transition: background .2s ease, box-shadow .2s ease; }
-  li[data-audience].is-relevant{
-    background: var(--accent-tint);
-    margin-left: -10px;
-    padding: 2px 10px 2px 6px;
-    border-radius: 3px;
-    color: var(--ink);
-    list-style-position: inside;
-  }
-  span[data-audience].is-relevant{
-    background: var(--accent-tint);
-    padding: 1px 4px;
-    border-radius: 3px;
-    color: var(--ink);
-  }
-  .visa-box.is-relevant{
-    box-shadow: 0 0 0 1px var(--accent) inset;
-  }
-  .proj[data-audience].is-relevant{
-    background: var(--accent-tint);
-    padding: 12px 14px;
-    margin: 0 -14px 18px;
-    border-radius: 4px;
-  }
-
-  h2.section{
-    font-family: var(--font);
-    font-weight: normal;
-    font-size: 15px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin: 34px 0 14px 0;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  p.body-text{
-    font-size: 14.5px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin: 0 0 10px 0;
-  }
-  p.body-text:last-child{ margin-bottom: 0; }
-  p.body-text b{ color: var(--ink); font-weight: bold; }
-
-  .job{ margin-bottom: 22px; }
-  .job:last-child{ margin-bottom: 0; }
-  .job-head{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .job-title{
-    font-size: 15px;
-    color: var(--ink);
-  }
-  .job-title b{ font-weight: bold; }
-  .job-title i{ font-style: italic; color: var(--ink-soft); }
-  .job-dates{
-    font-size: 13px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  ul.bullets{
-    margin: 8px 0 0 0;
-    padding-left: 20px;
-    color: var(--ink-soft);
-    font-size: 14px;
-    line-height: 1.68;
-  }
-  ul.bullets li{ margin-bottom: 6px; }
-  ul.bullets li::marker{ color: var(--muted); }
-
-  .skills-line{
-    font-size: 14.5px;
-    line-height: 1.75;
-    color: var(--ink-soft);
-  }
-
-  .proj{ margin-bottom: 18px; }
-  .proj:last-child{ margin-bottom: 0; }
-  .proj h3{
-    font-size: 15px;
-    font-weight: bold;
-    margin: 0 0 4px 0;
-    color: var(--ink);
-  }
-  .proj p{ margin: 0 0 6px 0; }
-  .proj .links{ font-size: 12.5px; color: var(--muted); }
-  .proj .links a{ color: var(--accent); text-decoration: none; }
-  .proj .links a:hover{ text-decoration: underline; }
-
-  .download-row{
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .btn-download{
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--font);
-    font-size: 13.5px;
-    padding: 11px 20px;
-    text-decoration: none;
-    border-radius: 3px;
-    transition: background .15s ease;
-  }
-  .btn-download:hover{ background: var(--accent); }
-  .download-note{ font-size: 12px; color: var(--muted); }
-
-  /* ============ RIGHT — CHAT ============ */
-  .chat{
-    height: 100vh;
-    height: 100dvh;
-    min-width: 0;
-    background: var(--panel);
-    border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-  }
-  .chat-head{
-    padding: 24px 26px 18px 26px;
-    border-bottom: 1px solid var(--border);
-  }
-  .chat-head h2{
-    font-family: var(--font);
-    font-weight: normal;
-    font-size: 17px;
-    margin: 0 0 4px 0;
-    color: var(--ink);
-  }
-  .chat-head p{
-    font-size: 12.5px;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .chat-window{
-    flex: 1;
-    overflow-y: auto;
-    padding: 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .msg{
-    font-size: 14px;
-    line-height: 1.65;
-    padding: 12px 15px;
-    border-radius: 6px;
-    max-width: 90%;
-  }
-  .msg-bot{
-    background: var(--paper);
-    border: 1px solid var(--border);
-    color: var(--ink-soft);
-    align-self: flex-start;
-  }
-  .msg-user{
-    background: var(--accent-tint);
-    border: 1px solid #dbe4ea;
-    color: var(--ink);
-    align-self: flex-end;
-  }
-  .msg-error{
-    background: #fbecea;
-    border: 1px solid #e3b3ab;
-    color: #8a3b30;
-    align-self: flex-start;
-  }
-  .msg.loading{ color: var(--muted); font-size: 13px; font-style: italic; }
-  .msg :is(p){ margin: 0 0 8px 0; }
-  .msg :is(p):last-child{ margin-bottom: 0; }
-  .msg pre{ background: #f2f1ee; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12.5px; font-family: Menlo, Consolas, monospace; }
-  .msg code{ font-family: Menlo, Consolas, monospace; font-size: 12.5px; }
-  .msg a{ color: var(--accent); }
-
-  .chat-input{
-    border-top: 1px solid var(--border);
-    padding: 16px 20px;
-  }
-  .prompt-row{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px 4px 4px 14px;
-  }
-  .prompt-row input{
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--ink);
-    font-family: var(--font);
-    font-size: 14px;
-    padding: 10px 0;
-  }
-  .prompt-row input::placeholder{ color: #a8a6a1; font-style: italic; }
-  .send-btn{
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    width: 34px; height: 34px;
-    border-radius: 5px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background .15s ease;
-  }
-  .send-btn:hover{ background: var(--accent); }
-  .send-btn:disabled{ opacity: .5; cursor: default; }
-
-  a:focus-visible, button:focus-visible, input:focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  .resume::-webkit-scrollbar, .chat-window::-webkit-scrollbar{ width: 8px; }
-  .resume::-webkit-scrollbar-thumb, .chat-window::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 4px; }
-  .resume::-webkit-scrollbar-track, .chat-window::-webkit-scrollbar-track{ background: transparent; }
-
-  /* Tablet: keep side-by-side, just rebalance the split so neither pane feels cramped */
-  @media (max-width: 1180px) and (min-width: 761px){
-    .app{ grid-template-columns: minmax(0, 1fr) clamp(340px, 38vw, 440px); }
-    .resume{ padding: 40px 32px 60px; }
-  }
-
-  /* Phone / narrow window: stack, but both panes fill real, roughly-equal viewport space */
   @media (max-width: 760px){
-    .app{
-      grid-template-columns: 1fr;
-      grid-template-rows: minmax(0, 1.15fr) minmax(360px, 1fr);
-      height: 100vh;
-      height: 100dvh;
-    }
-    .resume{
-      height: 100%;
-      padding: 32px 22px 36px;
-    }
-    .chat{
-      height: 100%;
-      border-left: none;
-      border-top: 1px solid var(--border);
-    }
-    .job-head{ flex-direction: column; gap: 2px; }
-    h1.name{ font-size: 32px; }
-  }
-
-  @media (max-width: 420px){
-    .app{ grid-template-rows: minmax(0, 1fr) minmax(320px, 0.9fr); }
-    .resume{ padding: 26px 18px 30px; }
-    .chat-head{ padding: 18px 18px 14px; }
-    .chat-window{ padding: 16px 16px; }
-    .chat-input{ padding: 12px 14px; }
+    .app{ grid-template-columns: 1fr; grid-template-rows: 1.15fr 1fr; }
+    .chat{ border-left: none; border-top: 1px solid var(--md-sys-color-outline); }
   }
 </style>
 </head>
@@ -402,249 +68,238 @@
 
   <!-- ============ LEFT: RESUME ============ -->
   <section class="resume">
-    <div class="resume-inner">
 
-      <h1 class="name">Faizan Awan</h1>
-      <p class="subtitle" id="tagline">Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience</p>
-      <hr class="top-rule">
+    <span style="font-size:34px; font-weight:500; color:var(--md-sys-color-on-surface);">Faizan Awan</span>
+    <p id="tagline" style="color:var(--md-sys-color-on-surface-variant); margin:6px 0 16px;">
+      Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience
+    </p>
+    <md-divider style="margin-bottom:16px;"></md-divider>
 
-      <div class="contact-row">
-        <a href="tel:+966534093689">+966 53 409 3689</a><span class="sep">·</span><a href="mailto:dev.faizan.awan@gmail.com">dev.faizan.awan@gmail.com</a><span class="sep">·</span><a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank">linkedin.com/in/faiiziiawan</a>
-      </div>
-
-      <div class="viewer-select" role="group" aria-label="View this resume as">
-        <span class="viewer-label">Viewing as</span>
-        <div class="viewer-tabs">
-          <button type="button" class="viewer-tab active" data-persona="general">General</button>
-          <button type="button" class="viewer-tab" data-persona="recruiter">Recruiter</button>
-          <button type="button" class="viewer-tab" data-persona="techlead">Tech Lead</button>
-          <button type="button" class="viewer-tab" data-persona="founder">Founder</button>
-        </div>
-      </div>
-      <div id="personaNote" class="persona-note"></div>
-
-      <div class="visa-box" data-audience="recruiter">
-        <h2 class="section">Visa Eligibilities</h2>
-        <p class="body-text">As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.</p>
-        <p class="body-text">Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.</p>
-      </div>
-
-      <h2 class="section">Skills</h2>
-      <p class="skills-line">Cross Platform Application Development (<span data-audience="techlead">Flutter SDK, Android JAVA SDk</span>), Microservices development (<span data-audience="techlead founder">Codeignitor PHP, Django Python</span>), Vibe Coding for redundant code steps, <span data-audience="techlead">Managing git repos (code reviews, merging pull requests)</span>, <span data-audience="founder recruiter">App publishing (Google Play, Apple AppStore, Microservices deployment)</span>, and UI/UX (Figma).</p>
-
-      <h2 class="section">Experience</h2>
-
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title"><b>Al Falak Electronic &amp; Supplies, Saudi Arabia</b> — <i>Web Developer (Saudi Aramco Contractor)</i></div>
-        </div>
-        <div class="job-dates">Jan 2023 – PRESENT</div>
-        <ul class="bullets">
-          <li data-audience="techlead">Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
-          <li data-audience="founder">Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
-          <li>Isolated development/test and production Oracle database instances by installing a fresh Oracle instance on Windows Server.</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title"><b>Infogistic Pvt. Ltd., Pakistan</b> — <i>Mobile Application Developer</i></div>
-        </div>
-        <div class="job-dates">Oct 2020 – Sept 2022</div>
-        <ul class="bullets">
-          <li data-audience="techlead">Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
-          <li data-audience="founder recruiter">Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
-          <li data-audience="techlead">Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
-          <li data-audience="founder">Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title"><b>VIION Technology, Pakistan</b> — <i>Android Developer</i></div>
-        </div>
-        <div class="job-dates">Nov 2018 – Sept 2020</div>
-        <ul class="bullets">
-          <li data-audience="techlead">Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2 for dependency injection, Room for persistence storage, and Retrofit for network communication.</li>
-          <li data-audience="techlead">Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
-          <li data-audience="founder">Introduced usage of Kotlin as a replacement for Java.</li>
-        </ul>
-      </div>
-
-      <h2 class="section">Education</h2>
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title"><b>Government College University Lahore, Pakistan (H+)</b> — Bachelors of Computer Science (Hons.), 4 Years</div>
-        </div>
-        <div class="job-dates">Nov 2013 – Sept 2018</div>
-        <p class="body-text" style="margin-top:8px;">Graduated with 3.07/4 CGPA (76.75%), equivalent to a Good grade under EU Bachelors degree programs.</p>
-      </div>
-
-      <h2 class="section">Projects</h2>
-
-      <div class="proj" data-audience="techlead">
-        <h3>Flutter Native Splash — Open Source Contribution</h3>
-        <p class="body-text">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
-        <div class="links">Pub: <a href="https://pub.dev/packages/flutter_native_splash" target="_blank">pub.dev/packages/flutter_native_splash</a> &nbsp;·&nbsp; <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank">GitHub PR #257</a></div>
-      </div>
-
-      <div class="proj" data-audience="techlead">
-        <h3>Flutter Community | Plus Plugins — Open Source Contribution</h3>
-        <p class="body-text">Explored test cases across the packages and found room to improve unit tests in two modules. Used Dart's 'part' / 'part of' pattern to isolate device-mock information and refactored the existing test code for readability.</p>
-        <div class="links"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank">github.com/fluttercommunity/plus_plugins</a> &nbsp;·&nbsp; <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank">GitHub PR #2053</a></div>
-      </div>
-
-      <div class="download-row">
-        <a href="resume.pdf" download class="btn-download"><i class="fa-solid fa-download"></i> Download PDF</a>
-        <span class="download-note">Same content, formatted as a one-page PDF</span>
-      </div>
-
+    <div class="contact-row" style="font-size:13.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:20px;">
+      <a href="tel:+966534093689" style="color:inherit;">+966 53 409 3689</a>·
+      <a href="mailto:dev.faizan.awan@gmail.com" style="color:inherit;">dev.faizan.awan@gmail.com</a>·
+      <a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank" style="color:inherit;">linkedin.com/in/faiiziiawan</a>
     </div>
+
+    <p style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--md-sys-color-on-surface-variant); margin-bottom:8px;">Viewing as</p>
+    <div class="viewer-tabs" id="viewerTabs">
+      <md-filter-chip label="General" data-persona="general" selected></md-filter-chip>
+      <md-filter-chip label="Recruiter" data-persona="recruiter"></md-filter-chip>
+      <md-filter-chip label="Tech Lead" data-persona="techlead"></md-filter-chip>
+      <md-filter-chip label="Founder" data-persona="founder"></md-filter-chip>
+    </div>
+
+    <div id="personaNoteWrap" style="display:none; margin-top:16px;">
+      <md-elevated-card style="padding:14px 16px; --md-elevated-card-container-color: var(--md-sys-color-primary-container);">
+        <p id="personaNote" style="margin:0; font-size:13.5px; color:var(--md-sys-color-on-primary-container);"></p>
+      </md-elevated-card>
+    </div>
+
+    <div class="visa-box" data-audience="recruiter" style="margin-top:28px; padding:4px;">
+      <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px;">Visa Eligibilities</h2>
+      <p style="font-size:14px; line-height:1.7; color:var(--md-sys-color-on-surface-variant);">
+        As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.
+      </p>
+      <p style="font-size:14px; line-height:1.7; color:var(--md-sys-color-on-surface-variant);">
+        Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.
+      </p>
+    </div>
+
+    <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Skills</h2>
+    <p style="font-size:14px; line-height:1.75; color:var(--md-sys-color-on-surface-variant);">
+      Cross Platform Application Development (<span data-audience="techlead">Flutter SDK, Android JAVA SDK</span>), Microservices development (<span data-audience="techlead founder">Codeignitor PHP, Django Python</span>), Vibe Coding for redundant code steps, <span data-audience="techlead">Managing git repos (code reviews, merging pull requests)</span>, <span data-audience="founder recruiter">App publishing (Google Play, Apple AppStore, Microservices deployment)</span>, and UI/UX (Figma).
+    </p>
+
+    <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Experience</h2>
+
+    <div style="margin-bottom:20px;">
+      <p style="font-size:14.5px; margin-bottom:2px;"><b>Al Falak Electronic &amp; Supplies, Saudi Arabia</b> — Web Developer (Saudi Aramco Contractor)</p>
+      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Jan 2023 – PRESENT</p>
+      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
+        <li data-audience="techlead">Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
+        <li data-audience="founder">Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
+        <li>Isolated development/test and production Oracle database instances by installing a fresh Oracle instance on Windows Server.</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <p style="font-size:14.5px; margin-bottom:2px;"><b>Infogistic Pvt. Ltd., Pakistan</b> — Mobile Application Developer</p>
+      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Oct 2020 – Sept 2022</p>
+      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
+        <li data-audience="techlead">Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
+        <li data-audience="founder recruiter">Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
+        <li data-audience="techlead">Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
+        <li data-audience="founder">Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <p style="font-size:14.5px; margin-bottom:2px;"><b>VIION Technology, Pakistan</b> — Android Developer</p>
+      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Nov 2018 – Sept 2020</p>
+      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
+        <li data-audience="techlead">Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2, Room, and Retrofit.</li>
+        <li data-audience="techlead">Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
+        <li data-audience="founder">Introduced usage of Kotlin as a replacement for Java.</li>
+      </ul>
+    </div>
+
+    <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Education</h2>
+    <p style="font-size:14.5px; margin-bottom:2px;"><b>Government College University Lahore, Pakistan (H+)</b> — Bachelors of Computer Science (Hons.), 4 Years</p>
+    <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Nov 2013 – Sept 2018</p>
+    <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Graduated with 3.07/4 CGPA (76.75%), equivalent to a Good grade under EU Bachelors degree programs.</p>
+
+    <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Projects</h2>
+
+    <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
+      <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Native Splash — Open Source Contribution</p>
+      <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
+      <p style="font-size:12.5px;"><a href="https://pub.dev/packages/flutter_native_splash" target="_blank" style="color:var(--md-sys-color-primary);">pub.dev/packages/flutter_native_splash</a> · <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #257</a></p>
+    </div>
+
+    <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
+      <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Community | Plus Plugins — Open Source Contribution</p>
+      <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Explored test cases across the packages and improved unit tests in two modules using Dart's 'part'/'part of' pattern.</p>
+      <p style="font-size:12.5px;"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank" style="color:var(--md-sys-color-primary);">github.com/fluttercommunity/plus_plugins</a> · <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #2053</a></p>
+    </div>
+
+    <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--md-sys-color-outline); display:flex; align-items:center; gap:16px;">
+      <md-filled-button href="resume.pdf" download>
+        <md-icon slot="icon" class="material-symbols-outlined">download</md-icon>
+        Download PDF
+      </md-filled-button>
+      <span style="font-size:12px; color:var(--md-sys-color-on-surface-variant);">Same content, formatted as a one-page PDF</span>
+    </div>
+
   </section>
 
   <!-- ============ RIGHT: CHAT ============ -->
   <section class="chat">
-    <div class="chat-head">
-      <h2>Ask Daddo</h2>
-      <p id="chatSubtitle">Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
+    <div style="padding:24px 26px 18px; border-bottom:1px solid var(--md-sys-color-outline);">
+      <p style="font-size:16px; font-weight:500; margin:0 0 4px;">Ask Daddo</p>
+      <p id="chatSubtitle" style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin:0;">Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
     </div>
 
     <div id="chatWindow" class="chat-window">
-      <div class="msg msg-bot">
-        Hello — I'm Daddo, Faizan's AI assistant. Ask me about his experience, mobile projects, skills, or visa eligibility.
+      <div class="msg-row bot">
+        <md-outlined-card class="msg-bubble" style="padding:12px 15px;">
+          <p style="margin:0; font-size:14px; color:var(--md-sys-color-on-surface-variant);">Hello — I'm Daddo, Faizan's AI assistant. Ask me about his experience, mobile projects, skills, or visa eligibility.</p>
+        </md-outlined-card>
       </div>
     </div>
 
-    <div class="chat-input">
-      <form id="chatForm" onsubmit="handleChatSubmit(event)">
-        <div class="prompt-row">
-          <input
-            type="text"
-            id="userInput"
-            placeholder="Ask a question…"
-            autocomplete="off"
-            required
-          >
-          <button type="submit" id="sendBtn" class="send-btn" aria-label="Send">
-            <i class="fa-solid fa-paper-plane"></i>
-          </button>
-        </div>
-      </form>
+    <div class="chat-input-row">
+      <md-outlined-text-field id="userInput" placeholder="Ask a question…" style="--md-outlined-text-field-container-shape: 24px;"></md-outlined-text-field>
+      <md-filled-icon-button id="sendBtn" aria-label="Send">
+        <md-icon class="material-symbols-outlined">send</md-icon>
+      </md-filled-icon-button>
     </div>
   </section>
 
 </div>
 
 <script>
-  const WORKER_URL = "https://faiizii-resume-bot.m-faizan-aramco.workers.dev/";
+  const WORKER_URL = "https://faiizii-resume-bot.faiizii.workers.dev/";
 
-  async function handleChatSubmit(event) {
-    event.preventDefault();
+  const chatWindow = document.getElementById("chatWindow");
+  const input = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
 
-    const inputField = document.getElementById("userInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const chatWindow = document.getElementById("chatWindow");
-    const question = inputField.value.trim();
+  function escapeHtml(text){
+    return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
 
-    if (!question) return;
+  function addBotBubble(html, isError=false){
+    const row = document.createElement("div");
+    row.className = "msg-row bot";
+    const card = document.createElement(isError ? "md-outlined-card" : "md-outlined-card");
+    card.className = "msg-bubble";
+    card.style.padding = "12px 15px";
+    if(isError){
+      card.style.setProperty("--md-outlined-card-outline-color", "var(--md-sys-color-error)");
+      card.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-error);">${html}</p>`;
+    } else {
+      card.innerHTML = `<div style="font-size:14px;color:var(--md-sys-color-on-surface-variant);">${html}</div>`;
+    }
+    row.appendChild(card);
+    chatWindow.appendChild(row);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+    return row;
+  }
 
-    inputField.value = "";
-    inputField.disabled = true;
+  function addUserBubble(text){
+    const row = document.createElement("div");
+    row.className = "msg-row user";
+    const card = document.createElement("md-filled-card");
+    card.className = "msg-bubble";
+    card.style.padding = "12px 15px";
+    card.style.setProperty("--md-filled-card-container-color", "var(--md-sys-color-primary)");
+    card.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-on-primary);">${escapeHtml(text)}</p>`;
+    row.appendChild(card);
+    chatWindow.appendChild(row);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  async function sendMessage(){
+    const question = input.value.trim();
+    if(!question) return;
+
+    input.value = "";
+    input.disabled = true;
     sendBtn.disabled = true;
 
-    chatWindow.innerHTML += `
-      <div class="msg msg-user">${escapeHtml(question)}</div>
-    `;
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    addUserBubble(question);
+    const loadingRow = addBotBubble(`<span style="display:flex;align-items:center;gap:8px;"><md-circular-progress indeterminate style="--md-circular-progress-size:16px;"></md-circular-progress> Thinking…</span>`);
 
-    const loadingId = "loading-" + Date.now();
-    chatWindow.innerHTML += `
-      <div id="${loadingId}" class="msg msg-bot loading">
-        <i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Thinking…
-      </div>
-    `;
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-
-    try {
+    try{
       const response = await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: question })
       });
-
       const data = await response.json();
-      document.getElementById(loadingId).remove();
+      loadingRow.remove();
 
-      if (response.ok && data.choices && data.choices[0]) {
-        const rawContent = data.choices[0].message.content;
-        const parsedContent = marked.parse(rawContent);
-
-        chatWindow.innerHTML += `
-          <div class="msg msg-bot">${parsedContent}</div>
-        `;
+      if(response.ok && data.choices && data.choices[0]){
+        const parsed = marked.parse(data.choices[0].message.content);
+        addBotBubble(parsed);
       } else {
-        const errText = data.error || "Failed to fetch response.";
-        chatWindow.innerHTML += `
-          <div class="msg msg-error">${escapeHtml(errText)}</div>
-        `;
+        addBotBubble(escapeHtml(data.error || "Failed to fetch response."), true);
       }
-
-    } catch (err) {
-      document.getElementById(loadingId)?.remove();
-      chatWindow.innerHTML += `
-        <div class="msg msg-error">Error contacting AI service. Please try again later.</div>
-      `;
+    } catch(err){
+      loadingRow.remove();
+      addBotBubble("Error contacting AI service. Please try again later.", true);
     } finally {
-      inputField.disabled = false;
+      input.disabled = false;
       sendBtn.disabled = false;
-      inputField.focus();
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+      input.focus();
     }
   }
 
-  function escapeHtml(text) {
-    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  sendBtn.addEventListener("click", sendMessage);
+  input.addEventListener("keydown", (e) => { if(e.key === "Enter") sendMessage(); });
 
   const PERSONAS = {
-    general: {
-      tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience",
-      note: null,
-      chat: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility."
-    },
-    recruiter: {
-      tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.",
-      note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+). Full detail in Visa Eligibilities below.",
-      chat: "Ask about availability, visa status, or career history."
-    },
-    techlead: {
-      tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.",
-      note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.",
-      chat: "Ask about architecture choices, testing practices, or code review workflow."
-    },
-    founder: {
-      tagline: "Ships mobile products end-to-end and automates the operational grind around them — architecture through to RPA pipelines saving 100+ hours a month.",
-      note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.",
-      chat: "Ask what he could own on day one, or how he works with a small team."
-    }
+    general:   { tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience", note: null, chat: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility." },
+    recruiter: { tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.", note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+).", chat: "Ask about availability, visa status, or career history." },
+    techlead:  { tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.", note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.", chat: "Ask about architecture choices, testing practices, or code review workflow." },
+    founder:   { tagline: "Ships mobile products end-to-end and automates the operational grind around them.", note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.", chat: "Ask what he could own on day one, or how he works with a small team." }
   };
 
-  function setPersona(key) {
+  function setPersona(key){
     const data = PERSONAS[key] || PERSONAS.general;
-
     document.getElementById("tagline").innerHTML = data.tagline;
     document.getElementById("chatSubtitle").textContent = data.chat;
 
-    const note = document.getElementById("personaNote");
-    if (data.note) {
-      note.textContent = data.note;
-      note.classList.add("show");
+    const wrap = document.getElementById("personaNoteWrap");
+    if(data.note){
+      document.getElementById("personaNote").textContent = data.note;
+      wrap.style.display = "block";
     } else {
-      note.classList.remove("show");
+      wrap.style.display = "none";
     }
 
-    document.querySelectorAll(".viewer-tab").forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.persona === key);
+    document.querySelectorAll("md-filter-chip").forEach(chip => {
+      chip.selected = chip.dataset.persona === key;
     });
 
     document.querySelectorAll("[data-audience]").forEach(el => {
@@ -653,8 +308,9 @@
     });
   }
 
-  document.querySelectorAll(".viewer-tab").forEach(btn => {
-    btn.addEventListener("click", () => setPersona(btn.dataset.persona));
+  document.getElementById("viewerTabs").addEventListener("click", (e) => {
+    const chip = e.target.closest("md-filter-chip");
+    if(chip) setPersona(chip.dataset.persona);
   });
 </script>
 </body>
