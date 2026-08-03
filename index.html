@@ -9,14 +9,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
 
-<!-- Official Material Web (M3) components -->
-<script type="importmap">
-{ "imports": { "@material/web/": "https://esm.run/@material/web/" } }
-</script>
-<script type="module">
-  import '@material/web/all.js';
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
@@ -51,10 +43,65 @@
   .msg-row.bot{ justify-content: flex-start; }
   .msg-bubble{ max-width: 85%; }
   .chat-input-row{ display: flex; align-items: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--md-sys-color-outline); }
-  .chat-input-row md-outlined-text-field{ flex: 1; }
+  .chat-input-row .text-field{ flex: 1; }
   .viewer-tabs{ display: flex; flex-wrap: wrap; gap: 8px; }
   .contact-row{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  [data-audience].is-relevant{ background: var(--md-sys-color-primary-container); border-radius: 8px; }
+  .is-hidden{ display: none !important; }
+
+  .skill-tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag{
+    font-size: 13px; padding: 6px 12px; border-radius: 8px; white-space: nowrap;
+    background: var(--md-sys-color-surface-variant); border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  /* ---- Native M3-styled controls (no external component library) ---- */
+  .divider{ border: none; border-top: 1px solid var(--md-sys-color-outline); }
+
+  .chip{
+    font: 500 13.5px 'Roboto', sans-serif; color: var(--md-sys-color-on-surface-variant);
+    background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline);
+    border-radius: 8px; padding: 7px 14px; cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+  }
+  .chip:hover{ background: var(--md-sys-color-surface-variant); }
+  .chip.is-selected{
+    background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container);
+    border-color: var(--md-sys-color-primary-container); font-weight: 700;
+  }
+
+  .btn-filled{
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font: 500 14px 'Roboto', sans-serif; color: var(--md-sys-color-on-primary);
+    background: var(--md-sys-color-primary); border: none; border-radius: 100px;
+    padding: 10px 20px 10px 16px; cursor: pointer;
+  }
+  .btn-filled:hover{ opacity: .92; }
+
+  .icon-btn{
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 50%; border: none; flex-shrink: 0;
+    background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); cursor: pointer;
+  }
+  .icon-btn:hover{ opacity: .92; }
+  .icon-btn:disabled{ opacity: .5; cursor: default; }
+
+  .card{ background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline); border-radius: 12px; }
+  .card.elevated{ border-color: var(--md-sys-color-primary-container); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+  .text-field{
+    width: 100%; font: 400 14px 'Roboto', sans-serif; color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline);
+    border-radius: 24px; padding: 11px 18px; outline: none;
+  }
+  .text-field:focus{ border-color: var(--md-sys-color-primary); border-width: 2px; padding: 10px 17px; }
+  .text-field:disabled{ opacity: .6; }
+
+  .spinner{
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--md-sys-color-outline); border-top-color: var(--md-sys-color-on-surface-variant);
+    display: inline-block; animation: spin .7s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
 
   @media (max-width: 760px){
     .app{ grid-template-columns: 1fr; grid-template-rows: 1.15fr 1fr; }
@@ -73,7 +120,7 @@
     <p id="tagline" style="color:var(--md-sys-color-on-surface-variant); margin:6px 0 16px;">
       Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience
     </p>
-    <md-divider style="margin-bottom:16px;"></md-divider>
+    <hr class="divider" style="margin-bottom:16px;">
 
     <div class="contact-row" style="font-size:13.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:20px;">
       <a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank" style="color:inherit;">linkedin.com/in/faiiziiawan</a>
@@ -81,16 +128,16 @@
 
     <p style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--md-sys-color-on-surface-variant); margin-bottom:8px;">Viewing as</p>
     <div class="viewer-tabs" id="viewerTabs">
-      <md-filter-chip label="General" data-persona="general" selected></md-filter-chip>
-      <md-filter-chip label="Recruiter" data-persona="recruiter"></md-filter-chip>
-      <md-filter-chip label="Tech Lead" data-persona="techlead"></md-filter-chip>
-      <md-filter-chip label="Founder" data-persona="founder"></md-filter-chip>
+      <button type="button" class="chip is-selected" data-persona="general">General</button>
+      <button type="button" class="chip" data-persona="recruiter">Recruiter</button>
+      <button type="button" class="chip" data-persona="techlead">Tech Lead</button>
+      <button type="button" class="chip" data-persona="founder">Founder</button>
     </div>
 
     <div id="personaNoteWrap" style="display:none; margin-top:16px;">
-      <md-elevated-card style="padding:14px 16px; --md-elevated-card-container-color: var(--md-sys-color-primary-container);">
+      <div class="card elevated" style="padding:14px 16px; background: var(--md-sys-color-primary-container);">
         <p id="personaNote" style="margin:0; font-size:13.5px; color:var(--md-sys-color-on-primary-container);"></p>
-      </md-elevated-card>
+      </div>
     </div>
 
     <div class="visa-box" data-audience="recruiter" style="margin-top:28px; padding:4px;">
@@ -104,9 +151,18 @@
     </div>
 
     <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Skills</h2>
-    <p style="font-size:14px; line-height:1.75; color:var(--md-sys-color-on-surface-variant);">
-      Cross Platform Application Development (<span data-audience="techlead">Flutter SDK, Android JAVA SDK</span>), Microservices development (<span data-audience="techlead founder">Codeignitor PHP, Django Python</span>), Vibe Coding for redundant code steps, <span data-audience="techlead">Managing git repos (code reviews, merging pull requests)</span>, <span data-audience="founder recruiter">App publishing (Google Play, Apple AppStore, Microservices deployment)</span>, and UI/UX (Figma).
-    </p>
+    <div class="skill-tags">
+      <span class="skill-tag">Cross-Platform App Development</span>
+      <span class="skill-tag" data-audience="techlead">Flutter SDK</span>
+      <span class="skill-tag" data-audience="techlead">Android Java SDK</span>
+      <span class="skill-tag">Microservices Development</span>
+      <span class="skill-tag" data-audience="techlead founder">CodeIgniter (PHP)</span>
+      <span class="skill-tag" data-audience="techlead founder">Django (Python)</span>
+      <span class="skill-tag">Vibe Coding for Rapid Iteration</span>
+      <span class="skill-tag" data-audience="techlead">Git Workflow &amp; Code Review</span>
+      <span class="skill-tag" data-audience="founder recruiter">App Store Publishing (Google Play &amp; App Store)</span>
+      <span class="skill-tag">UI/UX (Figma)</span>
+    </div>
 
     <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Experience</h2>
 
@@ -146,25 +202,27 @@
     <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Nov 2013 – Sept 2018</p>
     <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Graduated with 3.07/4 CGPA (76.75%), equivalent to a Good grade under EU Bachelors degree programs.</p>
 
-    <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Projects</h2>
+    <div data-section="projects">
+      <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Projects</h2>
 
-    <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
-      <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Native Splash — Open Source Contribution</p>
-      <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
-      <p style="font-size:12.5px;"><a href="https://pub.dev/packages/flutter_native_splash" target="_blank" style="color:var(--md-sys-color-primary);">pub.dev/packages/flutter_native_splash</a> · <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #257</a></p>
-    </div>
+      <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
+        <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Native Splash — Open Source Contribution</p>
+        <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
+        <p style="font-size:12.5px;"><a href="https://pub.dev/packages/flutter_native_splash" target="_blank" style="color:var(--md-sys-color-primary);">pub.dev/packages/flutter_native_splash</a> · <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #257</a></p>
+      </div>
 
-    <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
-      <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Community | Plus Plugins — Open Source Contribution</p>
-      <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Explored test cases across the packages and improved unit tests in two modules using Dart's 'part'/'part of' pattern.</p>
-      <p style="font-size:12.5px;"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank" style="color:var(--md-sys-color-primary);">github.com/fluttercommunity/plus_plugins</a> · <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #2053</a></p>
+      <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
+        <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Community | Plus Plugins — Open Source Contribution</p>
+        <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Explored test cases across the packages and improved unit tests in two modules using Dart's 'part'/'part of' pattern.</p>
+        <p style="font-size:12.5px;"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank" style="color:var(--md-sys-color-primary);">github.com/fluttercommunity/plus_plugins</a> · <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #2053</a></p>
+      </div>
     </div>
 
     <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--md-sys-color-outline); display:flex; align-items:center; gap:16px;">
-      <md-filled-button href="resume.pdf" download>
-        <md-icon slot="icon" class="material-symbols-outlined">download</md-icon>
+      <a class="btn-filled" href="resume.pdf" download>
+        <span class="material-symbols-outlined" style="font-size:18px;">download</span>
         Download PDF
-      </md-filled-button>
+      </a>
       <span style="font-size:12px; color:var(--md-sys-color-on-surface-variant);">Same content, formatted as a one-page PDF</span>
     </div>
 
@@ -179,17 +237,17 @@
 
     <div id="chatWindow" class="chat-window">
       <div class="msg-row bot">
-        <md-outlined-card class="msg-bubble" style="padding:12px 15px;">
+        <div class="card msg-bubble" style="padding:12px 15px;">
           <p style="margin:0; font-size:14px; color:var(--md-sys-color-on-surface-variant);">Hello — I'm Daddo, Faizan's AI assistant. Ask me about his experience, mobile projects, skills, or visa eligibility.</p>
-        </md-outlined-card>
+        </div>
       </div>
     </div>
 
     <div class="chat-input-row">
-      <md-outlined-text-field id="userInput" placeholder="Ask a question…" style="--md-outlined-text-field-container-shape: 24px;"></md-outlined-text-field>
-      <md-filled-icon-button id="sendBtn" aria-label="Send">
-        <md-icon class="material-symbols-outlined">send</md-icon>
-      </md-filled-icon-button>
+      <input class="text-field" id="userInput" type="text" placeholder="Ask a question…">
+      <button type="button" class="icon-btn" id="sendBtn" aria-label="Send">
+        <span class="material-symbols-outlined" style="font-size:20px;">send</span>
+      </button>
     </div>
   </section>
 
@@ -251,7 +309,7 @@
     sendBtn.disabled = true;
 
     addUserBubble(question);
-    const loadingRow = addBotBubble(`<span style="display:flex;align-items:center;gap:8px;"><md-circular-progress indeterminate style="--md-circular-progress-size:16px;"></md-circular-progress> Thinking…</span>`);
+    const loadingRow = addBotBubble(`<span style="display:flex;align-items:center;gap:8px;"><span class="spinner"></span> Thinking…</span>`);
 
     try{
       const response = await fetch(WORKER_URL, {
@@ -281,40 +339,138 @@
   sendBtn.addEventListener("click", sendMessage);
   input.addEventListener("keydown", (e) => { if(e.key === "Enter") sendMessage(); });
 
-  const PERSONAS = {
-    general:   { tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience", note: null, chat: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility." },
-    recruiter: { tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.", note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+).", chat: "Ask about availability, visa status, or career history." },
-    techlead:  { tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.", note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.", chat: "Ask about architecture choices, testing practices, or code review workflow." },
-    founder:   { tagline: "Ships mobile products end-to-end and automates the operational grind around them.", note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.", chat: "Ask what he could own on day one, or how he works with a small team." }
-  };
+  /* ---------------------------------------------------------------------
+   * Role-based content model (OOP)
+   *
+   * Persona           – plain data object describing one audience's copy.
+   * PersonaRegistry    – holds/looks up every Persona by key. Adding a new
+   *                      role for a button = one .register(...) call here,
+   *                      nothing else needs to change.
+   * ResumeView         – owns the DOM elements and knows how to *render*
+   *                      whichever Persona it's given. It never knows
+   *                      persona content itself, only how to paint it.
+   * ------------------------------------------------------------------- */
 
-  function setPersona(key){
-    const data = PERSONAS[key] || PERSONAS.general;
-    document.getElementById("tagline").innerHTML = data.tagline;
-    document.getElementById("chatSubtitle").textContent = data.chat;
-
-    const wrap = document.getElementById("personaNoteWrap");
-    if(data.note){
-      document.getElementById("personaNote").textContent = data.note;
-      wrap.style.display = "block";
-    } else {
-      wrap.style.display = "none";
+  class Persona {
+    constructor(key, { tagline, note = null, chatSubtitle }){
+      this.key = key;
+      this.tagline = tagline;
+      this.note = note;           // null => no highlight card shown
+      this.chatSubtitle = chatSubtitle;
     }
-
-    document.querySelectorAll("md-filter-chip").forEach(chip => {
-      chip.selected = chip.dataset.persona === key;
-    });
-
-    document.querySelectorAll("[data-audience]").forEach(el => {
-      const tags = el.dataset.audience.split(" ");
-      el.classList.toggle("is-relevant", key !== "general" && tags.includes(key));
-    });
   }
 
-  document.getElementById("viewerTabs").addEventListener("click", (e) => {
-    const chip = e.target.closest("md-filter-chip");
-    if(chip) setPersona(chip.dataset.persona);
-  });
+  class PersonaRegistry {
+    constructor(){
+      this._personas = new Map();
+    }
+    register(key, data){
+      this._personas.set(key, new Persona(key, data));
+      return this; // chainable
+    }
+    get(key){
+      return this._personas.get(key) || this._personas.get("general");
+    }
+    has(key){
+      return this._personas.has(key);
+    }
+  }
+
+  class ResumeView {
+    constructor(registry, root = document){
+      this.registry = registry;
+      this.taglineEl     = root.getElementById("tagline");
+      this.chatSubtitleEl = root.getElementById("chatSubtitle");
+      this.noteWrapEl    = root.getElementById("personaNoteWrap");
+      this.noteEl        = root.getElementById("personaNote");
+      this.chips         = [...root.querySelectorAll(".chip[data-persona]")];
+      this.audienceEls   = [...root.querySelectorAll("[data-audience]")];
+      this.lists         = [...root.querySelectorAll(".resume ul")];
+      this.sections      = [...root.querySelectorAll("[data-section]")];
+      this.activeKey     = "general";
+    }
+
+    render(key){
+      const persona = this.registry.get(key);
+      this.activeKey = persona.key;
+
+      this.taglineEl.innerHTML = persona.tagline;
+      this.chatSubtitleEl.textContent = persona.chatSubtitle;
+
+      if(persona.note){
+        this.noteEl.textContent = persona.note;
+        this.noteWrapEl.style.display = "block";
+      } else {
+        this.noteWrapEl.style.display = "none";
+      }
+
+      this.chips.forEach(chip => {
+        chip.classList.toggle("is-selected", chip.dataset.persona === persona.key);
+      });
+
+      // Show only what's relevant to this persona. "General" is the
+      // unfiltered baseline; every other role hides anything tagged
+      // for a different audience — a full content swap, not a highlight.
+      this.audienceEls.forEach(el => {
+        const tags = el.dataset.audience.split(" ");
+        const isRelevant = persona.key === "general" || tags.includes(persona.key);
+        el.classList.toggle("is-hidden", !isRelevant);
+      });
+
+      // A <ul> left with zero visible <li> after filtering shouldn't
+      // render as an empty bulleted stub.
+      this.lists.forEach(ul => {
+        const items = [...ul.children];
+        const anyVisible = items.some(li => !li.classList.contains("is-hidden"));
+        ul.classList.toggle("is-hidden", items.length > 0 && !anyVisible);
+      });
+
+      // A whole section (e.g. "Projects") whose every entry was
+      // audience-tagged and filtered out shouldn't leave an orphaned
+      // heading with nothing underneath it.
+      this.sections.forEach(section => {
+        const taggedChildren = [...section.querySelectorAll("[data-audience]")];
+        const anyVisible = taggedChildren.length === 0 || taggedChildren.some(el => !el.classList.contains("is-hidden"));
+        section.classList.toggle("is-hidden", !anyVisible);
+      });
+    }
+
+    /** Wires up any element carrying [data-persona] (chips, links, buttons...) */
+    bindTriggers(container){
+      container.addEventListener("click", (e) => {
+        const trigger = e.target.closest("[data-persona]");
+        if(trigger && this.registry.has(trigger.dataset.persona)){
+          this.render(trigger.dataset.persona);
+        }
+      });
+    }
+  }
+
+  // ---- Register every role's copy in one place -------------------------
+  const personaRegistry = new PersonaRegistry()
+    .register("general", {
+      tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience",
+      chatSubtitle: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility."
+    })
+    .register("recruiter", {
+      tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.",
+      note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+).",
+      chatSubtitle: "Ask about availability, visa status, or career history."
+    })
+    .register("techlead", {
+      tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.",
+      note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.",
+      chatSubtitle: "Ask about architecture choices, testing practices, or code review workflow."
+    })
+    .register("founder", {
+      tagline: "Ships mobile products end-to-end and automates the operational grind around them.",
+      note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.",
+      chatSubtitle: "Ask what he could own on day one, or how he works with a small team."
+    });
+
+  const resumeView = new ResumeView(personaRegistry);
+  resumeView.bindTriggers(document.getElementById("viewerTabs"));
+  resumeView.render("general");
 </script>
 </body>
 </html>
