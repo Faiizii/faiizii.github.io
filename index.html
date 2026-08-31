@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Faizan — Mobile Engineer</title>
+<title>Faizan Awan — Mobile Engineer</title>
 
 <!-- M3 typography + iconography -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
@@ -107,6 +107,14 @@
     .app{ grid-template-columns: 1fr; grid-template-rows: 1.15fr 1fr; }
     .chat{ border-left: none; border-top: 1px solid var(--md-sys-color-outline); }
   }
+
+  /* ---- Print / "Download PDF" — only the resume pane, as currently shown ---- */
+  @media print{
+    html, body{ background: #fff; }
+    .app{ display: block; height: auto; }
+    .resume{ height: auto; overflow: visible; padding: 0 8px; }
+    .chat, #personaSwitcher, #pdfActionsRow{ display: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -125,12 +133,14 @@
       <a href="https://www.linkedin.com/in/faiiziiawan/" target="_blank" style="color:inherit;">linkedin.com/in/faiiziiawan</a>
     </div>
 
-    <p style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--md-sys-color-on-surface-variant); margin-bottom:8px;">Viewing as</p>
-    <div class="viewer-tabs" id="viewerTabs">
-      <button type="button" class="chip is-selected" data-persona="general">General</button>
-      <button type="button" class="chip" data-persona="recruiter">Recruiter</button>
-      <button type="button" class="chip" data-persona="techlead">Tech Lead</button>
-      <button type="button" class="chip" data-persona="founder">Founder</button>
+    <div id="personaSwitcher">
+      <p style="font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--md-sys-color-on-surface-variant); margin-bottom:8px;">Viewing as</p>
+      <div class="viewer-tabs" id="viewerTabs">
+        <button type="button" class="chip is-selected" data-persona="general">General</button>
+        <button type="button" class="chip" data-persona="recruiter">Recruiter</button>
+        <button type="button" class="chip" data-persona="techlead">Tech Lead</button>
+        <button type="button" class="chip" data-persona="founder">Founder</button>
+      </div>
     </div>
 
     <!-- Persona note: content/personas/<key>.md -> frontmatter "note" -->
@@ -163,12 +173,12 @@
       <div id="projectsWrap"></div>
     </div>
 
-    <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--md-sys-color-outline); display:flex; align-items:center; gap:16px;">
-      <a class="btn-filled" href="resume.pdf" download>
+    <div id="pdfActionsRow" style="margin-top:36px; padding-top:20px; border-top:1px solid var(--md-sys-color-outline); display:flex; align-items:center; gap:16px;">
+      <button type="button" class="btn-filled" id="downloadPdfBtn">
         <span class="material-symbols-outlined" style="font-size:18px;">download</span>
         Download PDF
-      </a>
-      <span style="font-size:12px; color:var(--md-sys-color-on-surface-variant);">Same content, formatted as a one-page PDF</span>
+      </button>
+      <span style="font-size:12px; color:var(--md-sys-color-on-surface-variant);">Opens the print dialog — choose "Save as PDF" to download this view</span>
     </div>
 
   </section>
