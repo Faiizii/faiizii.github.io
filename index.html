@@ -117,9 +117,8 @@
   <section class="resume">
 
     <span style="font-size:34px; font-weight:500; color:var(--md-sys-color-on-surface);">Faizan Awan</span>
-    <p id="tagline" style="color:var(--md-sys-color-on-surface-variant); margin:6px 0 16px;">
-      Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience
-    </p>
+    <!-- tagline text comes from the active persona's .md frontmatter -->
+    <p id="tagline" style="color:var(--md-sys-color-on-surface-variant); margin:6px 0 16px;"></p>
     <hr class="divider" style="margin-bottom:16px;">
 
     <div class="contact-row" style="font-size:13.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:20px;">
@@ -134,88 +133,34 @@
       <button type="button" class="chip" data-persona="founder">Founder</button>
     </div>
 
+    <!-- Persona note: content/personas/<key>.md -> frontmatter "note" -->
     <div id="personaNoteWrap" style="display:none; margin-top:16px;">
       <div class="card elevated" style="padding:14px 16px; background: var(--md-sys-color-primary-container);">
         <p id="personaNote" style="margin:0; font-size:13.5px; color:var(--md-sys-color-on-primary-container);"></p>
       </div>
     </div>
 
-    <div class="visa-box" data-audience="recruiter" style="margin-top:28px; padding:4px;">
-      <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px;">Visa Eligibilities</h2>
-      <p style="font-size:14px; line-height:1.7; color:var(--md-sys-color-on-surface-variant);">
-        As an IT Specialist, I do not require traditional visa sponsorship or a Labor Market Test. An employment contract meeting the legal salary threshold and an online-filed <b>Erklärung zum Beschäftigungsverhältnis</b> would be sufficient to process my own fast-track Blue Card visa at the German Embassy Riyadh, with no cost required from you as an employer or recruiter.
-      </p>
-      <p style="font-size:14px; line-height:1.7; color:var(--md-sys-color-on-surface-variant);">
-        Also eligible for the <b>Chancenkarte (Opportunity Card)</b>, which is easily transferable to a Blue Card. Credentials are <b>fully recognized (Anabin H+)</b>.
-      </p>
-    </div>
+    <!-- Country visa box: auto-detected from visitor IP, content/countries/<CODE>.md -->
+    <div id="countryVisaBox" style="margin-top:28px; padding:4px;"></div>
 
+    <!-- Skills: content/personas/<key>.md -> "## Skills" (comma-separated) -->
     <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Skills</h2>
-    <div class="skill-tags">
-      <span class="skill-tag">Cross-Platform App Development</span>
-      <span class="skill-tag" data-audience="techlead">Flutter SDK</span>
-      <span class="skill-tag" data-audience="techlead">Android Java SDK</span>
-      <span class="skill-tag">Microservices Development</span>
-      <span class="skill-tag" data-audience="techlead founder">CodeIgniter (PHP)</span>
-      <span class="skill-tag" data-audience="techlead founder">Django (Python)</span>
-      <span class="skill-tag">Vibe Coding for Rapid Iteration</span>
-      <span class="skill-tag" data-audience="techlead">Git Workflow &amp; Code Review</span>
-      <span class="skill-tag" data-audience="founder recruiter">App Store Publishing (Google Play &amp; App Store)</span>
-      <span class="skill-tag">UI/UX (Figma)</span>
-    </div>
+    <div class="skill-tags" id="skillsWrap"></div>
 
+    <!-- Experience: content/personas/<key>.md -> "## Experience" (### entries) -->
     <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Experience</h2>
+    <div id="experienceWrap"></div>
 
-    <div style="margin-bottom:20px;">
-      <p style="font-size:14.5px; margin-bottom:2px;"><b>Al Falak Electronic &amp; Supplies, Saudi Arabia</b> — Web Developer (Saudi Aramco Contractor)</p>
-      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Jan 2023 – PRESENT</p>
-      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
-        <li data-audience="techlead">Migrated a large-scale Flutter application from a simple state management solution to BLoC, with 100+ widget, integration and unit tests.</li>
-        <li data-audience="founder">Saved 100+ man-hours monthly by designing a data preparation pipeline using RPA UiPath and C# programs to process SuccessFactor reports.</li>
-        <li>Isolated development/test and production Oracle database instances by installing a fresh Oracle instance on Windows Server.</li>
-      </ul>
-    </div>
-
-    <div style="margin-bottom:20px;">
-      <p style="font-size:14.5px; margin-bottom:2px;"><b>Infogistic Pvt. Ltd., Pakistan</b> — Mobile Application Developer</p>
-      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Oct 2020 – Sept 2022</p>
-      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
-        <li data-audience="techlead">Designed &amp; developed Flutter apps using GETx (DI &amp; state management).</li>
-        <li data-audience="founder recruiter">Managed stores (Google Play &amp; AppStore) and reported directly to the CTO, COO, CEO.</li>
-        <li data-audience="techlead">Reviewed &amp; merged PRs submitted by the mobile team to uphold company codebase standards.</li>
-        <li data-audience="founder">Migrated a fully developed Java-based Android application into Flutter, including SVN-to-GitHub version control migration.</li>
-      </ul>
-    </div>
-
-    <div style="margin-bottom:20px;">
-      <p style="font-size:14.5px; margin-bottom:2px;"><b>VIION Technology, Pakistan</b> — Android Developer</p>
-      <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Nov 2018 – Sept 2020</p>
-      <ul style="font-size:14px; line-height:1.65; color:var(--md-sys-color-on-surface-variant); padding-left:20px;">
-        <li data-audience="techlead">Designed and developed Android apps using Java and Kotlin, following the MVVM architecture pattern. Implemented Dagger2, Room, and Retrofit.</li>
-        <li data-audience="techlead">Upgraded Dagger implementation to Dagger2 in multiple live Android applications.</li>
-        <li data-audience="founder">Introduced usage of Kotlin as a replacement for Java.</li>
-      </ul>
-    </div>
-
+    <!-- Education is the same for every persona, so it stays static here -->
     <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Education</h2>
     <p style="font-size:14.5px; margin-bottom:2px;"><b>Government College University Lahore, Pakistan (H+)</b> — Bachelors of Computer Science (Hons.), 4 Years</p>
     <p style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin-bottom:6px;">Nov 2013 – Sept 2018</p>
     <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Graduated with 3.07/4 CGPA (76.75%), equivalent to a Good grade under EU Bachelors degree programs.</p>
 
-    <div data-section="projects">
+    <!-- Projects: content/personas/<key>.md -> "## Projects" (### entries). Hidden entirely if empty. -->
+    <div id="projectsSection">
       <h2 style="font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--md-sys-color-outline); padding-bottom:6px; margin-top:32px;">Projects</h2>
-
-      <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
-        <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Native Splash — Open Source Contribution</p>
-        <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Was integrating this in a client project and found that, per Android's new Splash API, the library lacked branding functionality. Took the challenge and added it.</p>
-        <p style="font-size:12.5px;"><a href="https://pub.dev/packages/flutter_native_splash" target="_blank" style="color:var(--md-sys-color-primary);">pub.dev/packages/flutter_native_splash</a> · <a href="https://github.com/jonbhanson/flutter_native_splash/pull/257" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #257</a></p>
-      </div>
-
-      <div class="proj" data-audience="techlead" style="margin-bottom:16px; padding:4px;">
-        <p style="font-size:14.5px; font-weight:500; margin-bottom:4px;">Flutter Community | Plus Plugins — Open Source Contribution</p>
-        <p style="font-size:14px; color:var(--md-sys-color-on-surface-variant);">Explored test cases across the packages and improved unit tests in two modules using Dart's 'part'/'part of' pattern.</p>
-        <p style="font-size:12.5px;"><a href="https://github.com/fluttercommunity/plus_plugins" target="_blank" style="color:var(--md-sys-color-primary);">github.com/fluttercommunity/plus_plugins</a> · <a href="https://github.com/fluttercommunity/plus_plugins/pull/2053" target="_blank" style="color:var(--md-sys-color-primary);">GitHub PR #2053</a></p>
-      </div>
+      <div id="projectsWrap"></div>
     </div>
 
     <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--md-sys-color-outline); display:flex; align-items:center; gap:16px;">
@@ -232,7 +177,7 @@
   <section class="chat">
     <div style="padding:24px 26px 18px; border-bottom:1px solid var(--md-sys-color-outline);">
       <p style="font-size:16px; font-weight:500; margin:0 0 4px;">Ask Daddo</p>
-      <p id="chatSubtitle" style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin:0;">Faizan's AI assistant — ask about his experience, skills, or visa eligibility.</p>
+      <p id="chatSubtitle" style="font-size:12.5px; color:var(--md-sys-color-on-surface-variant); margin:0;"></p>
     </div>
 
     <div id="chatWindow" class="chat-window">
@@ -253,224 +198,6 @@
 
 </div>
 
-<script>
-  const WORKER_URL = "https://daddu.faiizii.workers.dev/";
-
-  const chatWindow = document.getElementById("chatWindow");
-  const input = document.getElementById("userInput");
-  const sendBtn = document.getElementById("sendBtn");
-
-  function escapeHtml(text){
-    return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  }
-
-  function addBotBubble(html, isError=false){
-    const row = document.createElement("div");
-    row.className = "msg-row bot";
-    const bubble = document.createElement("div");
-    bubble.className = "msg-bubble";
-    bubble.style.padding = "12px 15px";
-    bubble.style.borderRadius = "16px";
-    bubble.style.border = "1px solid var(--md-sys-color-outline)";
-    if(isError){
-      bubble.style.background = "var(--md-sys-color-error-container)";
-      bubble.style.borderColor = "var(--md-sys-color-error)";
-      bubble.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-error);">${html}</p>`;
-    } else {
-      bubble.style.background = "var(--md-sys-color-surface)";
-      bubble.innerHTML = `<div style="font-size:14px;color:var(--md-sys-color-on-surface-variant);">${html}</div>`;
-    }
-    row.appendChild(bubble);
-    chatWindow.appendChild(row);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-    return row;
-  }
-
-  function addUserBubble(text){
-    const row = document.createElement("div");
-    row.className = "msg-row user";
-    const bubble = document.createElement("div");
-    bubble.className = "msg-bubble";
-    bubble.style.padding = "12px 15px";
-    bubble.style.borderRadius = "16px";
-    bubble.style.background = "var(--md-sys-color-primary)";
-    bubble.innerHTML = `<p style="margin:0;font-size:14px;color:var(--md-sys-color-on-primary);">${escapeHtml(text)}</p>`;
-    row.appendChild(bubble);
-    chatWindow.appendChild(row);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-
-  async function sendMessage(){
-    const question = input.value.trim();
-    if(!question) return;
-
-    input.value = "";
-    input.disabled = true;
-    sendBtn.disabled = true;
-
-    addUserBubble(question);
-    const loadingRow = addBotBubble(`<span style="display:flex;align-items:center;gap:8px;"><span class="spinner"></span> Thinking…</span>`);
-
-    try{
-      const response = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: question })
-      });
-      const data = await response.json();
-      loadingRow.remove();
-
-      if(response.ok && data.choices && data.choices[0]){
-        const parsed = marked.parse(data.choices[0].message.content);
-        addBotBubble(parsed);
-      } else {
-        addBotBubble(escapeHtml(data.error || "Failed to fetch response."), true);
-      }
-    } catch(err){
-      loadingRow.remove();
-      addBotBubble("Error contacting AI service. Please try again later.", true);
-    } finally {
-      input.disabled = false;
-      sendBtn.disabled = false;
-      input.focus();
-    }
-  }
-
-  sendBtn.addEventListener("click", sendMessage);
-  input.addEventListener("keydown", (e) => { if(e.key === "Enter") sendMessage(); });
-
-  /* ---------------------------------------------------------------------
-   * Role-based content model (OOP)
-   *
-   * Persona           – plain data object describing one audience's copy.
-   * PersonaRegistry    – holds/looks up every Persona by key. Adding a new
-   *                      role for a button = one .register(...) call here,
-   *                      nothing else needs to change.
-   * ResumeView         – owns the DOM elements and knows how to *render*
-   *                      whichever Persona it's given. It never knows
-   *                      persona content itself, only how to paint it.
-   * ------------------------------------------------------------------- */
-
-  class Persona {
-    constructor(key, { tagline, note = null, chatSubtitle }){
-      this.key = key;
-      this.tagline = tagline;
-      this.note = note;           // null => no highlight card shown
-      this.chatSubtitle = chatSubtitle;
-    }
-  }
-
-  class PersonaRegistry {
-    constructor(){
-      this._personas = new Map();
-    }
-    register(key, data){
-      this._personas.set(key, new Persona(key, data));
-      return this; // chainable
-    }
-    get(key){
-      return this._personas.get(key) || this._personas.get("general");
-    }
-    has(key){
-      return this._personas.has(key);
-    }
-  }
-
-  class ResumeView {
-    constructor(registry, root = document){
-      this.registry = registry;
-      this.taglineEl     = root.getElementById("tagline");
-      this.chatSubtitleEl = root.getElementById("chatSubtitle");
-      this.noteWrapEl    = root.getElementById("personaNoteWrap");
-      this.noteEl        = root.getElementById("personaNote");
-      this.chips         = [...root.querySelectorAll(".chip[data-persona]")];
-      this.audienceEls   = [...root.querySelectorAll("[data-audience]")];
-      this.lists         = [...root.querySelectorAll(".resume ul")];
-      this.sections      = [...root.querySelectorAll("[data-section]")];
-      this.activeKey     = "general";
-    }
-
-    render(key){
-      const persona = this.registry.get(key);
-      this.activeKey = persona.key;
-
-      this.taglineEl.innerHTML = persona.tagline;
-      this.chatSubtitleEl.textContent = persona.chatSubtitle;
-
-      if(persona.note){
-        this.noteEl.textContent = persona.note;
-        this.noteWrapEl.style.display = "block";
-      } else {
-        this.noteWrapEl.style.display = "none";
-      }
-
-      this.chips.forEach(chip => {
-        chip.classList.toggle("is-selected", chip.dataset.persona === persona.key);
-      });
-
-      // Show only what's relevant to this persona. "General" is the
-      // unfiltered baseline; every other role hides anything tagged
-      // for a different audience — a full content swap, not a highlight.
-      this.audienceEls.forEach(el => {
-        const tags = el.dataset.audience.split(" ");
-        const isRelevant = persona.key === "general" || tags.includes(persona.key);
-        el.classList.toggle("is-hidden", !isRelevant);
-      });
-
-      // A <ul> left with zero visible <li> after filtering shouldn't
-      // render as an empty bulleted stub.
-      this.lists.forEach(ul => {
-        const items = [...ul.children];
-        const anyVisible = items.some(li => !li.classList.contains("is-hidden"));
-        ul.classList.toggle("is-hidden", items.length > 0 && !anyVisible);
-      });
-
-      // A whole section (e.g. "Projects") whose every entry was
-      // audience-tagged and filtered out shouldn't leave an orphaned
-      // heading with nothing underneath it.
-      this.sections.forEach(section => {
-        const taggedChildren = [...section.querySelectorAll("[data-audience]")];
-        const anyVisible = taggedChildren.length === 0 || taggedChildren.some(el => !el.classList.contains("is-hidden"));
-        section.classList.toggle("is-hidden", !anyVisible);
-      });
-    }
-
-    /** Wires up any element carrying [data-persona] (chips, links, buttons...) */
-    bindTriggers(container){
-      container.addEventListener("click", (e) => {
-        const trigger = e.target.closest("[data-persona]");
-        if(trigger && this.registry.has(trigger.dataset.persona)){
-          this.render(trigger.dataset.persona);
-        }
-      });
-    }
-  }
-
-  // ---- Register every role's copy in one place -------------------------
-  const personaRegistry = new PersonaRegistry()
-    .register("general", {
-      tagline: "Mobile Engineer | Fullstack Mobile Developer | 8 Years of Experience",
-      chatSubtitle: "Faizan's AI assistant — ask about his experience, skills, or visa eligibility."
-    })
-    .register("recruiter", {
-      tagline: "Cross-platform mobile engineer, 8 years experience — Germany Blue Card fast-track eligible, no sponsorship cost.",
-      note: "Ready to hire in Germany: self-funded Blue Card fast-track, Chancenkarte eligible, credentials fully recognized (Anabin H+).",
-      chatSubtitle: "Ask about availability, visa status, or career history."
-    })
-    .register("techlead", {
-      tagline: "Flutter &amp; Android engineer — BLoC and MVVM architectures, Dagger2, GetX, 100+ automated tests, hands-on PR review.",
-      note: "8 years across native Android (Java/Kotlin, MVVM, Dagger2, Room, Retrofit) and Flutter (BLoC, GetX), plus backend work in Django and Codeigniter.",
-      chatSubtitle: "Ask about architecture choices, testing practices, or code review workflow."
-    })
-    .register("founder", {
-      tagline: "Ships mobile products end-to-end and automates the operational grind around them.",
-      note: "Has owned products from prototype to store release, reported directly to CTO/COO/CEO, and cut 100+ hours of manual ops work a month through automation.",
-      chatSubtitle: "Ask what he could own on day one, or how he works with a small team."
-    });
-
-  const resumeView = new ResumeView(personaRegistry);
-  resumeView.bindTriggers(document.getElementById("viewerTabs"));
-  resumeView.render("general");
-</script>
+<script src="assets/site.js"></script>
 </body>
 </html>
